@@ -2,6 +2,7 @@ package cs2340.gatech.edu.lab3.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import java.util.Arrays;
 import java.util.List;
@@ -48,8 +49,20 @@ public class Student implements Parcelable {
     public String getMajor() {return _major; }
     public void setMajor(String major) { _major = major; }
 
-    public String getStanding() {return _standing.getValue();}
-    public void setStanding(String standing) {_standing.setValue(standing);}
+    public String getStanding() {return _standing.name();}
+    public void setStanding(String standing) {
+        if (standing.equals(ClassStanding.FRESHMAN.name())) {
+            _standing = ClassStanding.FRESHMAN;
+        } else if (standing.equals(ClassStanding.SOPHOMORE.name())) {
+            _standing = ClassStanding.SOPHOMORE;
+        } else if (standing.equals(ClassStanding.JUNIOR.name())) {
+            _standing = ClassStanding.JUNIOR;
+        } else if (standing.equals(ClassStanding.SENIOR.name())) {
+            _standing = ClassStanding.SENIOR;
+        } else {
+            Log.e("Student", "Incorrect value entered for standing.");
+        }
+    }
 
     /**
      * Lookup a major based on its code.  Returns the postion of that
@@ -73,13 +86,14 @@ public class Student implements Parcelable {
      * Make a new student
      * @param name      the student's name
      * @param major     the student's major
-     * @param standing  the student's standing
+     * @param standingStr  the student's standing
      */
-    public Student(String name, String major, String standing) {
+    public Student(String name, String major, String standingStr) {
         _name = name;
         _major= major;
         _id = Student.Next_Id++;
-        _standing.setValue(standing);
+        setStanding( standingStr );
+
     }
 
     /**
@@ -91,7 +105,7 @@ public class Student implements Parcelable {
         _name = name;
         _major= major;
         _id = Student.Next_Id++;
-        _standing.setValue("FR");
+        setStanding( "FRESHMAN" );
     }
 
     /**

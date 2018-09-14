@@ -13,7 +13,7 @@ public enum ClassStanding {
     ClassStanding(String standing) {
         value = standing;
     }
-    public String getValue() { return value; }
+    public final String getValue() { return value; }
     public void setValue(String standing) {
         if (standing.equals("FR") | standing.equals("SO") | standing.equals("JR") | standing.equals("SR")) {
             value = standing;
