@@ -33,6 +33,8 @@ public class Student implements Parcelable {
     /** this students major */
     private String _major;
 
+    /** this students standing */
+    private ClassStanding _standing;
 
     /* **********************
      * Getters and setters
@@ -45,6 +47,9 @@ public class Student implements Parcelable {
 
     public String getMajor() {return _major; }
     public void setMajor(String major) { _major = major; }
+
+    public String getStanding() {return _standing.getValue();}
+    public void setStanding(String standing) {_standing.setValue(standing);}
 
     /**
      * Lookup a major based on its code.  Returns the postion of that
@@ -68,11 +73,25 @@ public class Student implements Parcelable {
      * Make a new student
      * @param name      the student's name
      * @param major     the student's major
+     * @param standing  the student's standing
+     */
+    public Student(String name, String major, String standing) {
+        _name = name;
+        _major= major;
+        _id = Student.Next_Id++;
+        _standing.setValue(standing);
+    }
+
+    /**
+     * Make a new student
+     * @param name      the student's name
+     * @param major     the student's major
      */
     public Student(String name, String major) {
         _name = name;
         _major= major;
         _id = Student.Next_Id++;
+        _standing.setValue("FR");
     }
 
     /**
@@ -89,7 +108,7 @@ public class Student implements Parcelable {
      */
     @Override
     public String toString() {
-        return _name + " " + _major;
+        return _name + " " + _major + " " + _standing.name();
     }
 
 
@@ -113,8 +132,7 @@ public class Student implements Parcelable {
         _name = in.readString();
         _major = in.readString();
         _id = in.readInt();
-
-
+        _standing = (ClassStanding)in.readSerializable();
     }
 
     @Override
@@ -132,7 +150,7 @@ public class Student implements Parcelable {
          dest.writeString(_name);
          dest.writeString(_major);
          dest.writeInt(_id);
-
+         dest.writeSerializable( _standing );
 
     }
 

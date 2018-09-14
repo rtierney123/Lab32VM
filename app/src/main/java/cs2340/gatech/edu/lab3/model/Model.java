@@ -1,10 +1,11 @@
 package cs2340.gatech.edu.lab3.model;
 
 import android.support.annotation.NonNull;
-import android.support.compat.BuildConfig;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cs2340.gatech.edu.lab3.BuildConfig;
 
 
 /**
